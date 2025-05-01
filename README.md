@@ -4,6 +4,7 @@
 
 ## Notes
 - its recommended to start with embedd console, else the Starting state will not go away
+- embedding console is kinde broken, it works, but the game will still open its own console. most likely dueto the usage of the wrapper exe instead of the original one
 
 ### Official Documentation
 🗃️ https://ramjet.notion.site/dedicated-servers#17ef9ec29f17805b9942f9fd29d5187f
