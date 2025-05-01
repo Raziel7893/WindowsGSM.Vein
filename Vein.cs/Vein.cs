@@ -32,7 +32,8 @@ namespace WindowsGSM.Plugins
 
         // - Game server Fixed variables
         //public override string StartPath => "VeinServer.exe"; // Game server start path
-        public override string StartPath => "VeinServer.exe";//"Vein\\Binaries\\Win64\\VeinServer-Win64-Test.exe";//the test will change sometime so i don't want to come back then. if you have issues with starting correctly try the string in the comment
+        public override string StartPath => "Vein\\Binaries\\Win64\\VeinServer-Win64-Test.exe";//"VeinServer.exe";//the test will change sometime, you can use VeinServer.exe as a backup then
+        public string BackupExe => "VeinServer.exe";
         public string FullName = "Vein Dedicated Server"; // Game server FullName
         public bool AllowsEmbedConsole = true;  // Does this server support output redirect?
         public int PortIncrements = 1; // This tells WindowsGSM how many ports should skip after installation
@@ -96,8 +97,13 @@ namespace WindowsGSM.Plugins
             string shipExePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, StartPath);
             if (!File.Exists(shipExePath))
             {
-                Error = $"{Path.GetFileName(shipExePath)} not found ({shipExePath})";
-                return null;
+                Error = $"{Path.GetFileName(shipExePath)} not found ({shipExePath}), using backup wrapper";
+                shipExePath = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, BackupExe);
+                if (!File.Exists(shipExePath))
+                {
+                    Error = $"{Path.GetFileName(shipExePath)} Backup exe also not found, crashing";
+                    return null;
+                }
             }
 
             //Try gather a password from the gui
@@ -105,7 +111,7 @@ namespace WindowsGSM.Plugins
             sb.Append($"-Port={serverData.ServerPort} ");
             sb.Append($"-QueryPort={serverData.ServerQueryPort} ");
             sb.Append($"-multihome={serverData.ServerIP} ");
-            sb.Append($" {serverData.ServerParam}");
+            sb.Append($"{serverData.ServerParam} ");
 
             // Prepare Process
             var p = new Process
