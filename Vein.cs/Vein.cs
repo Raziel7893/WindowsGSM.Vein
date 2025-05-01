@@ -75,9 +75,7 @@ namespace WindowsGSM.Plugins
                 Port=${serverData.ServerPort}
                 ";
             string configFolder = "Vein\\Saved\\Config\\WindowsServer\\";
-            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles("Vein\\Saved\\"));
-            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles("Vein\\Saved\\Config"));
-            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(configFolder));
+            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder));
             string gameIniFile = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder, "Game.ini");
             File.WriteAllText(gameIniFile, gameContent);
 
