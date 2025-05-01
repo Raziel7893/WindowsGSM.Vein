@@ -24,15 +24,15 @@ namespace WindowsGSM.Plugins
         };
 
         // - Settings properties for SteamCMD installer
-        public override bool loginAnonymous => false;
-        public override string AppId => "1857950"; // Game server appId Steam
+        public override bool loginAnonymous => true;
+        public override string AppId => "2131400"; // Game server appId Steam
 
         // - Standard Constructor and properties
         public Vein(ServerConfig serverData) : base(serverData) => base.serverData = serverData;
 
         // - Game server Fixed variables
         //public override string StartPath => "VeinServer.exe"; // Game server start path
-        public override string StartPath => "VeinServer.exe";
+        public override string StartPath => "VeinServer.exe";//"Vein\\Binaries\\Win64\\VeinServer-Win64-Test.exe";//the test will change sometime so i don't want to come back then. if you have issues with starting correctly try the string in the comment
         public string FullName = "Vein Dedicated Server"; // Game server FullName
         public bool AllowsEmbedConsole = true;  // Does this server support output redirect?
         public int PortIncrements = 1; // This tells WindowsGSM how many ports should skip after installation
@@ -75,10 +75,11 @@ namespace WindowsGSM.Plugins
                 Port=${serverData.ServerPort}
                 ";
             string configFolder = "Vein\\Saved\\Config\\WindowsServer\\";
+            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles("Vein\\Saved\\"));
+            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles("Vein\\Saved\\Config"));
             Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(configFolder));
             string gameIniFile = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder, "Game.ini");
             File.WriteAllText(gameIniFile, gameContent);
-
 
             string engineContent = $@"[ConsoleVariables]
                 vein.PvP=True
@@ -86,8 +87,8 @@ namespace WindowsGSM.Plugins
                 vein.TimeMultiplier=16
                 # etc.
                 ";
-            Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(configFolder));
-            string engineIniFile = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder, "Engine.ini.ini");
+
+            string engineIniFile = Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder, "Engine.ini");
             File.WriteAllText(engineIniFile, engineContent);
         }
 
