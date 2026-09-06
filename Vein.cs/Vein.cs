@@ -61,7 +61,7 @@ namespace WindowsGSM.Plugins
 
                 [/Script/Vein.VeinGameSession]
                 bPublic=True
-                ServerName=${serverData.ServerName}
+                ServerName={serverData.ServerName}
                 BindAddr=0.0.0.0
                 SuperAdminSteamIDs=1234
                 AdminSteamIDs=1234
@@ -73,7 +73,7 @@ namespace WindowsGSM.Plugins
                 bVACEnabled=0
 
                 [URL]
-                Port=${serverData.ServerPort}
+                Port={serverData.ServerPort}
                 ";
             string configFolder = "Vein\\Saved\\Config\\WindowsServer\\";
             Directory.CreateDirectory(Functions.ServerPath.GetServersServerFiles(serverData.ServerID, configFolder));
