@@ -18,7 +18,7 @@ namespace WindowsGSM.Plugins
             name = "WindowsGSM.Vein", // WindowsGSM.XXXX
             author = "raziel7893",
             description = "WindowsGSM plugin for supporting Vein Dedicated Server",
-            version = "1.0.0",
+            version = "1.0.2",
             url = "https://github.com/Raziel7893/WindowsGSM.Vein", // Github repository link (Best practice) TODO
             color = "#34FFeb" // Color Hex
         };
